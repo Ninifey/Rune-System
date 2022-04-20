@@ -1,0 +1,91 @@
+package de.rinonline.korinrpg.Helper.NBT;
+
+
+public class RINPlayerBase {
+	private float redhealth,bluehealth,blackhealth,whitehealth;
+	private float redmaxhealth,bluemaxhealth,blackmaxhealth,whitemaxhealth;
+	private int takenWhite = 0;
+	
+	public int getTakenWhite() {
+		return takenWhite;
+	}
+
+	public void setTakenWhite(int takenWhite) {
+		this.takenWhite = takenWhite;
+	}
+
+	private int armour;
+	
+	public int getArmour() {
+		return armour;
+	}
+
+	public void setArmour(int armour) {
+		this.armour = armour;
+	}
+
+	public float getRedmaxhealth() {
+		return redmaxhealth;
+	}
+
+	public void setRedmaxhealth(float Redmaxhealth) {
+		this.redmaxhealth = Redmaxhealth;
+	}
+
+	public float getBluemaxhealth() {
+		return bluemaxhealth;
+	}
+
+	public void setBluemaxhealth(float bluemaxhealth) {
+		this.bluemaxhealth = bluemaxhealth;
+	}
+
+	public float getBlackmaxhealth() {
+		return blackmaxhealth;
+	}
+
+	public void setBlackmaxhealth(float blackmaxhealth) {
+		this.blackmaxhealth = blackmaxhealth;
+	}
+
+	public float getWhitemaxhealth() {
+		return whitemaxhealth;
+	}
+
+	public void setWhitemaxhealth(float whitemaxhealth) {
+		this.whitemaxhealth = whitemaxhealth;
+	}
+
+	public float getRedhealth() {
+		return redhealth;
+	}
+
+	public void setRedhealth(float redhealth) {
+		this.redhealth = redhealth;
+	}
+
+	public float getBluehealth() {
+		return bluehealth;
+	}
+
+	public void setBluehealth(float bluehealth) {
+		this.bluehealth = bluehealth;
+	}
+
+	public float getBlackhealth() {
+		return blackhealth;
+	}
+
+	public void setBlackhealth(float blackhealth) {
+		this.blackhealth = blackhealth;
+	}
+
+	public float getWhitehealth() {
+		return whitehealth;
+	}
+
+	public void setWhitehealth(float whitehealth) {
+		this.whitehealth = whitehealth;
+	}
+
+}

@@ -1,0 +1,12 @@
+package de.rinonline.korinrpg.Helper;
+
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+
+public class ItemStartEvent {
+
+	public static void onPlayerUseItem(EntityPlayer entityPlayer, ItemStack item) {
+		
+	}
+
+}

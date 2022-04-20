@@ -1,0 +1,333 @@
+package de.rinonline.korinrpg.Helper;
+
+import java.util.List;
+import java.util.UUID;
+
+import de.rinonline.korinrpg.ConfigurationMoD;
+import de.rinonline.korinrpg.Helper.Network.PacketDispatcher;
+import de.rinonline.korinrpg.Helper.Network.SyncPlayerPropsMessage;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.attributes.AttributeModifier;
+import net.minecraft.entity.ai.attributes.IAttributeInstance;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.DamageSource;
+import net.minecraft.world.World;
+import net.minecraftforge.common.IExtendedEntityProperties;
+
+public class RINPlayerBoI extends RINPlayerBase implements IExtendedEntityProperties
+{
+	public final static String RIN_PROP_NAME = "RINPlayerBoI";
+	private final EntityPlayer player;
+	private int timer,whitestate;
+	
+	public RINPlayerBoI(EntityPlayer player)
+	{
+		this.player = player;
+	}
+	
+	public static final void register(EntityPlayer player)
+	{
+		player.registerExtendedProperties(RINPlayerBoI.RIN_PROP_NAME, new RINPlayerBoI(player));
+	}
+	
+	public static final RINPlayerBoI get(EntityPlayer player)
+	{
+		return (RINPlayerBoI) player.getExtendedProperties(RIN_PROP_NAME);
+	}
+
+	public void copy(RINPlayerBoI props) {
+		if(ConfigurationMoD.losewhitehearts) {
+		       this.setRedhealth(props.getRedhealth()-(props.getTakenWhite()));
+		       this.setRedmaxhealth(props.getRedmaxhealth()-(props.getTakenWhite()));
+				this.setTakenWhite(0);
+				props.setTakenWhite(0);
+		}else {
+		       this.setRedhealth(props.getRedhealth());
+		       this.setRedmaxhealth(props.getRedmaxhealth());
+		}
+	       this.setArmour(props.getArmour());
+	       this.setBlackhealth(props.getBlackhealth());
+	       this.setBlackmaxhealth(props.getBlackmaxhealth());
+	       this.setBluehealth(props.getBluehealth());
+	       this.setBluemaxhealth(props.getBluemaxhealth());
+	       this.setWhitehealth(props.getWhitehealth());
+	       this.setWhitemaxhealth(props.getWhitemaxhealth());
+	       this.whitestate = props.whitestate;
+	       this.timer = props.timer;
+	       updateHearts();
+	}
+
+	
+	@Override
+	public void saveNBTData(NBTTagCompound compound)
+	{
+		NBTTagCompound properties = new NBTTagCompound();
+		properties.setFloat("Redhealth", this.getRedhealth());
+		properties.setFloat("Redmaxhealth", this.getRedmaxhealth());
+		properties.setFloat("Bluehealth", this.getBluehealth());
+		properties.setFloat("Bluemaxhealth", this.getBluemaxhealth());
+		properties.setFloat("Blackhealth", this.getBlackhealth());
+		properties.setFloat("Blackmaxhealth", this.getBlackmaxhealth());
+		properties.setFloat("Whitehealth", this.getWhitehealth());
+		properties.setFloat("Whitemaxhealth", this.getWhitemaxhealth());
+		properties.setInteger("Armour", this.getArmour());
+		properties.setInteger("takenWhite", this.getTakenWhite());
+		compound.setTag(RIN_PROP_NAME, properties);
+		
+	}
+
+	@Override
+	public void loadNBTData(NBTTagCompound compound)
+	{
+		NBTTagCompound properties = (NBTTagCompound) compound.getTag(RIN_PROP_NAME);
+		this.setRedhealth(properties.getFloat("Redhealth"));
+		this.setRedmaxhealth(properties.getFloat("Redmaxhealth"));
+		this.setBluehealth(properties.getFloat("Bluehealth"));
+		this.setBluemaxhealth(properties.getFloat("Bluemaxhealth"));
+		this.setBlackhealth(properties.getFloat("Blackhealth"));
+		this.setBlackmaxhealth(properties.getFloat("Blackmaxhealth"));
+		this.setWhitehealth(properties.getFloat("Whitehealth"));
+		this.setWhitemaxhealth(properties.getFloat("Whitemaxhealth"));
+		this.setArmour(properties.getInteger("Armour"));
+		this.setTakenWhite(properties.getInteger("takenWhite"));
+		
+	}
+	
+
+	@Override
+	public void init(Entity entity, World world)
+	{
+		this.setRedmaxhealth(0);
+		this.setRedhealth(0);
+	}
+
+	public boolean onhurtPlayer(float d) {
+		System.out.println("taken points 1 : "+this.getRedmaxhealth());
+		float Damage = d;
+			float i = 0;
+			whitestate = 0;
+		if(this.getWhitehealth() != 0) {
+				i = this.getWhitehealth()-Damage;
+				if(i >=1) {
+					this.setWhitehealth(i);
+					this.setWhitemaxhealth(i);
+					PacketDispatcher.sendTo(new SyncPlayerPropsMessage(player),(EntityPlayerMP) player);
+					return false;
+			}else {
+				this.setWhitehealth(0);
+				this.setWhitemaxhealth(0);
+				PacketDispatcher.sendTo(new SyncPlayerPropsMessage(player),(EntityPlayerMP) player);
+				Damage = i*(-1);
+			}
+		}
+		
+		if(this.getBlackhealth() != 0 && Damage >=1) {
+			i = this.getBlackhealth()-Damage;
+			if(i >=1) {
+				this.setBlackhealth(i);
+				this.setBlackmaxhealth(i);
+				PacketDispatcher.sendTo(new SyncPlayerPropsMessage(player),(EntityPlayerMP) player);
+				explose();
+				return false;
+				
+		}else {
+			this.setBlackhealth(0);
+			this.setBlackmaxhealth(0);
+			PacketDispatcher.sendTo(new SyncPlayerPropsMessage(player),(EntityPlayerMP) player);
+			explose();
+			Damage = i*(-1);
+			}
+		}
+			
+		if(this.getBluehealth() != 0 && Damage >=1) {
+			i = this.getBluehealth()-Damage;
+			if(i >=1) {
+				this.setBluehealth(i);
+				this.setBluemaxhealth(i);
+				PacketDispatcher.sendTo(new SyncPlayerPropsMessage(player),(EntityPlayerMP) player);
+				return false;
+		}else {
+			this.setBluehealth(0);
+			this.setBluemaxhealth(0);
+			PacketDispatcher.sendTo(new SyncPlayerPropsMessage(player),(EntityPlayerMP) player);
+			Damage = i*(-1);
+			}
+		}
+		
+		if(this.getRedhealth() != 0 && Damage >=1) {
+			i = this.getRedhealth()-Damage;
+			if(i >=1) {
+				this.setRedhealth(i);
+				PacketDispatcher.sendTo(new SyncPlayerPropsMessage(player),(EntityPlayerMP) player);
+			}else {
+			this.setRedhealth(0);
+			PacketDispatcher.sendTo(new SyncPlayerPropsMessage(player),(EntityPlayerMP) player);
+			return true;
+			}
+		}
+		PacketDispatcher.sendTo(new SyncPlayerPropsMessage(player),(EntityPlayerMP) player);
+		return true;
+			
+	}
+	
+	private void explose() {
+		if(!ConfigurationMoD.explosionbreakEntitys) {
+			int r = 4;
+			int x =(int)player.posX;
+			int y =(int)player.posY;
+			int z =(int)player.posZ;
+			List e = player.worldObj.getEntitiesWithinAABB(EntityLivingBase.class, AxisAlignedBB.getBoundingBox(x - r, y - r, z - r, x + r, y + r, z + r));
+			if(e.size() != 0){
+				for( int re = 1;e.size() >= re; ++re){
+					EntityLivingBase entity = (EntityLivingBase) e.get(re-1);
+					if(entity != player){
+						entity.attackEntityFrom(DamageSource.generic, 10);
+					}
+				}
+			}
+		}else {
+
+			player.worldObj.createExplosion(player, player.posX, player.posY, player.posZ, 4, ConfigurationMoD.explosionbreakblock);
+		}
+	}
+	
+	public void onUpdate() {
+		
+		if(updateTimer()&& !player.worldObj.isRemote) {
+			setArmour(player.inventory.getTotalArmorValue());
+			PacketDispatcher.sendTo(new SyncPlayerPropsMessage(player),(EntityPlayerMP) player);
+			
+		if(this.getWhitehealth()!= 0) {
+			updatewhitestate();
+			PacketDispatcher.sendTo(new SyncPlayerPropsMessage(player),(EntityPlayerMP) player);
+		}
+			
+			
+		if(this.getRedhealth() != player.getHealth()) {
+			this.setRedhealth(player.getHealth());
+			PacketDispatcher.sendTo(new SyncPlayerPropsMessage(player),(EntityPlayerMP) player);
+		}
+		}
+	}
+	
+	private void updateHearts() {
+			IAttributeInstance healthAttribute = player.getEntityAttribute(SharedMonsterAttributes.maxHealth);
+			AttributeModifier moras = new AttributeModifier(UUID.fromString("B9766C51-9566-4402-BC1F-2EE2A276D836"), "Moras Health Boost", this.getRedmaxhealth(), 0).setSaved(true);
+			healthAttribute.removeModifier(moras);
+			healthAttribute.applyModifier(moras);
+			PacketDispatcher.sendTo(new SyncPlayerPropsMessage(player),(EntityPlayerMP) player);
+			
+	}
+	
+	private void updatewhitestate() {
+		++whitestate;
+		if(whitestate >= ConfigurationMoD.WHITEHEART_TIME && this.getWhitehealth() >=2) {
+			this.setTakenWhite(this.getTakenWhite()+2);
+			this.setRedmaxhealth(this.getRedmaxhealth()+2);
+			this.setWhitehealth(this.getWhitehealth()-2);
+			this.setWhitemaxhealth(this.getWhitemaxhealth()-2);
+			updateHearts();
+			whitestate = 0;
+		}
+		
+	}
+
+	private boolean updateTimer() {
+		++timer;
+		if(timer >=20) {
+			timer = 0;
+			return true;
+		}
+		return false;
+	}
+
+	/**
+	 * 
+	 * @param i 
+	 * 1 = Blue half
+	 * 2 = Blue full
+	 * 3 = Black half
+	 * 4 = Black full
+	 * 5 = White half
+	 * 6 = White full
+	 * 7 = Red half
+	 * 8 = Red full
+	 * 
+	 */
+	public void addHeart(int i) {
+		switch(i) {
+		case 1:{
+			if((ConfigurationMoD.MAXHEARTSBLUE*2) > getBluemaxhealth()) {
+				this.setBluemaxhealth((this.getBluemaxhealth()+1));this.setBluehealth((this.getBluehealth()+1));
+				PacketDispatcher.sendTo(new SyncPlayerPropsMessage(player),(EntityPlayerMP) player);break;}
+			break;}
+		
+		case 2:{
+			if((ConfigurationMoD.MAXHEARTSBLUE*2) > getBluemaxhealth()) {
+			this.setBluemaxhealth((this.getBluemaxhealth()+2));this.setBluehealth((this.getBluehealth()+2));
+			PacketDispatcher.sendTo(new SyncPlayerPropsMessage(player),(EntityPlayerMP) player);break;}
+			break;}
+		case 3:{
+			if((ConfigurationMoD.MAXHEARTSBLACK*2) > getBlackmaxhealth()) {
+			this.setBlackmaxhealth((this.getBlackmaxhealth()+1));this.setBlackhealth((this.getBlackhealth()+1));
+			PacketDispatcher.sendTo(new SyncPlayerPropsMessage(player),(EntityPlayerMP) player);break;}
+			break;}
+		
+		case 4:{
+			if((ConfigurationMoD.MAXHEARTSBLACK*2) > getBlackmaxhealth()) {
+			this.setBlackmaxhealth((this.getBlackmaxhealth()+2));this.setBlackhealth((this.getBlackhealth()+2));
+			PacketDispatcher.sendTo(new SyncPlayerPropsMessage(player),(EntityPlayerMP) player);break;}
+			break;}
+		
+		case 5:{
+			if((ConfigurationMoD.MAXHEARTSWHITE*2) > getWhitemaxhealth() && ConfigurationMoD.MAXHEARTSREDWHITE*2 > this.getTakenWhite()) {
+			whitestate = 0;this.setWhitemaxhealth((this.getWhitemaxhealth()+1));this.setWhitehealth((this.getWhitehealth()+1));
+			PacketDispatcher.sendTo(new SyncPlayerPropsMessage(player),(EntityPlayerMP) player);break;}
+			break;}
+		
+		case 6:{
+			if((ConfigurationMoD.MAXHEARTSWHITE*2) > getWhitemaxhealth()) {
+			whitestate = 0;this.setWhitemaxhealth((this.getWhitemaxhealth()+2));this.setWhitehealth((this.getWhitehealth()+2));
+			PacketDispatcher.sendTo(new SyncPlayerPropsMessage(player),(EntityPlayerMP) player);break;}
+			break;}
+		
+		case 7:{
+			if((ConfigurationMoD.MAXHEARTS*2) > player.getMaxHealth()) {
+			this.setRedmaxhealth((this.getRedmaxhealth()+1));this.setRedhealth((this.getRedhealth()+1));updateHearts();
+				PacketDispatcher.sendTo(new SyncPlayerPropsMessage(player),(EntityPlayerMP) player);break;}
+			break;}
+		
+		case 8:{
+			if((ConfigurationMoD.MAXHEARTS*2) > player.getMaxHealth()) {
+				this.setRedmaxhealth((this.getRedmaxhealth()+2));this.setRedhealth((this.getRedhealth()+2));updateHearts();
+				PacketDispatcher.sendTo(new SyncPlayerPropsMessage(player),(EntityPlayerMP) player);break;}
+			break;}
+		}
+	}
+
+	public void resetData() {
+
+		System.out.println("add taken points 1");
+		   this.setTakenWhite(0);
+		   this.setRedhealth(0);
+		   this.setRedmaxhealth(0);
+	       this.setArmour(0);
+	       this.setBlackhealth(0);
+	       this.setBlackmaxhealth(0);
+	       this.setBluehealth(0);
+	       this.setBluemaxhealth(0);
+	       this.setWhitehealth(0);
+	       this.setWhitemaxhealth(0);
+	       this.whitestate = 0;
+	       this.timer = 0;
+	       updateHearts();
+	       PacketDispatcher.sendTo(new SyncPlayerPropsMessage(player),(EntityPlayerMP) player);
+	
+		
+	}
+}

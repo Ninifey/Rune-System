@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+    <fullyQualifiedTypeName name="java.util.HashMap"/>
+    <fullyQualifiedTypeName name="de.rinonline.korinrpg.RINMAIN"/>
+    <fullyQualifiedTypeName name="net.minecraftforge.common.config.Configuration"/>
+    <fullyQualifiedTypeName name="conception.render.libary.Quaternion"/>
+    <fullyQualifiedTypeName name="conception.render.libary.Channel"/>
+    <fullyQualifiedTypeName name="conception.render.libary.Vector3f"/>
+    <fullyQualifiedTypeName name="net.minecraft.client.Minecraft"/>
+    <fullyQualifiedTypeName name="net.minecraft.client.gui.FontRenderer"/>
+    <fullyQualifiedTypeName name="org.lwjgl.util.glu.GLU"/>
+    <fullyQualifiedTypeName name="net.minecraftforge.event.entity.player.PlayerUseItemEvent"/>
+    <fullyQualifiedTypeName name="net.minecraft.init.Items"/>
+</qualifiedTypeNameHistroy>

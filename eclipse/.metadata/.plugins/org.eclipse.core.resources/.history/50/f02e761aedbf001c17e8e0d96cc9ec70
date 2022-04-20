@@ -1,0 +1,87 @@
+package de.rinonline.korinrpg.Helper;
+
+import java.util.ArrayList;
+
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.world.World;
+import net.minecraftforge.common.IExtendedEntityProperties;
+
+public class PlayerSpells implements IExtendedEntityProperties
+{
+	public final static String PlayerSpells_NAME = "PlayerSpells";
+	private final EntityPlayer player;
+	private int timer,whitestate;
+	
+	public PlayerSpells(EntityPlayer player)
+	{
+		this.player = player;
+	}
+	
+	public static final void register(EntityPlayer player)
+	{
+		player.registerExtendedProperties(PlayerSpells.PlayerSpells_NAME, new PlayerSpells(player));
+	}
+	
+	public static final PlayerSpells get(EntityPlayer player)
+	{
+		return (PlayerSpells) player.getExtendedProperties(PlayerSpells_NAME);
+	}
+
+	public void copy(PlayerSpells props) {
+	}
+
+	
+	@Override
+	public void saveNBTData(NBTTagCompound compound)
+	{
+		NBTTagCompound properties = new NBTTagCompound();
+		properties.setFloat("Redhealth", this.getRedhealth());
+		properties.setFloat("Redmaxhealth", this.getRedmaxhealth());
+		properties.setFloat("Bluehealth", this.getBluehealth());
+		properties.setFloat("Bluemaxhealth", this.getBluemaxhealth());
+		properties.setFloat("Blackhealth", this.getBlackhealth());
+		properties.setFloat("Blackmaxhealth", this.getBlackmaxhealth());
+		properties.setFloat("Whitehealth", this.getWhitehealth());
+		properties.setFloat("Whitemaxhealth", this.getWhitemaxhealth());
+		properties.setInteger("Armour", this.getArmour());
+		properties.setInteger("takenWhite", this.getTakenWhite());
+		compound.setTag(PlayerSpells_NAME, properties);
+		
+	}
+
+	@Override
+	public void loadNBTData(NBTTagCompound compound)
+	{
+		NBTTagCompound properties = (NBTTagCompound) compound.getTag(PlayerSpells_NAME);
+		this.setRedhealth(properties.getFloat("Redhealth"));
+		this.setRedmaxhealth(properties.getFloat("Redmaxhealth"));
+		this.setBluehealth(properties.getFloat("Bluehealth"));
+		this.setBluemaxhealth(properties.getFloat("Bluemaxhealth"));
+		this.setBlackhealth(properties.getFloat("Blackhealth"));
+		this.setBlackmaxhealth(properties.getFloat("Blackmaxhealth"));
+		this.setWhitehealth(properties.getFloat("Whitehealth"));
+		this.setWhitemaxhealth(properties.getFloat("Whitemaxhealth"));
+		this.setArmour(properties.getInteger("Armour"));
+		this.setTakenWhite(properties.getInteger("takenWhite"));
+		
+	}
+	
+
+	@Override
+	public void init(Entity entity, World world)
+	{
+		this.setRedmaxhealth(0);
+		this.setRedhealth(0);
+	}
+	public void onUpdate() {
+		
+	}
+	
+	public static void onUseItem(ItemStack item) {
+		ArrayList<Spells> SpellsList;
+		
+	}
+}

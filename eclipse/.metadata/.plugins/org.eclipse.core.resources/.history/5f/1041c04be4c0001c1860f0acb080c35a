@@ -1,0 +1,204 @@
+package de.rinonline.korinrpg.Helper;
+
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
+import cpw.mods.fml.common.gameevent.PlayerEvent.PlayerLoggedOutEvent;
+import de.rinonline.korinrpg.ConfigurationMoD;
+import de.rinonline.korinrpg.ItemRegistry;
+import de.rinonline.korinrpg.Helper.NBT.RINPlayerBoI;
+import de.rinonline.korinrpg.Helper.Network.PacketDispatcher;
+import de.rinonline.korinrpg.Helper.Network.SyncPlayerPropsMessage;
+import de.rinonline.korinrpg.Item.ItemHeart;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.event.entity.EntityEvent.EntityConstructing;
+import net.minecraftforge.event.entity.EntityJoinWorldEvent;
+import net.minecraftforge.event.entity.living.LivingDropsEvent;
+import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
+import net.minecraftforge.event.entity.living.LivingHurtEvent;
+import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent;
+import net.minecraftforge.event.entity.player.PlayerUseItemEvent;
+
+
+public class RINEventHandler
+
+{
+	@SubscribeEvent
+	public void onEntityConstructing(EntityConstructing event) {
+		if (event.entity instanceof EntityPlayer) {
+			if (RINPlayerBoI.get((EntityPlayer) event.entity) == null) {
+				RINPlayerBoI.register((EntityPlayer) event.entity);
+				}else{
+					PacketDispatcher.sendTo(new SyncPlayerPropsMessage((EntityPlayer) event.entity), (EntityPlayerMP) event.entity);
+					
+				}
+		}		
+	}
+	
+	/**
+	 * This event is on the FML busLivingHurtEvent
+	 */
+	@SubscribeEvent
+	public void onPlayerLogIn(PlayerLoggedInEvent event) {
+		if (event.player instanceof EntityPlayer) {
+			if (RINPlayerBoI.get((EntityPlayer) event.player) == null) {
+				RINPlayerBoI.register((EntityPlayer) event.player);
+				}else{
+					PacketDispatcher.sendTo(new SyncPlayerPropsMessage((EntityPlayer) event.player), (EntityPlayerMP) event.player);
+					
+				}
+		}
+	}
+	
+
+	@SubscribeEvent
+	public void onPlayerLogOut(PlayerLoggedOutEvent event) {
+		if (event.player instanceof EntityPlayerMP) {
+			PacketDispatcher.sendTo(new SyncPlayerPropsMessage((EntityPlayer) event.player), (EntityPlayerMP) event.player);
+		}
+	}
+	
+	@SubscribeEvent
+	public void onJoinWorld(EntityJoinWorldEvent event) {
+
+		if (event.entity instanceof EntityPlayerMP) 
+		{
+			if (RINPlayerBoI.get((EntityPlayer) event.entity) == null) {
+			RINPlayerBoI.register((EntityPlayer) event.entity);
+			}
+		}
+	}
+
+	@SubscribeEvent
+	public void onClonePlayer(PlayerEvent.Clone event) {
+		//if(ConfigurationMoD.saveHeartsondeathe) {
+		RINPlayerBoI.get(event.entityPlayer).copy(RINPlayerBoI.get(event.original));
+		PacketDispatcher.sendTo(new SyncPlayerPropsMessage((EntityPlayer) event.entityPlayer), (EntityPlayerMP) event.entityPlayer);
+			//}
+		}
+
+		
+		@SubscribeEvent
+		public void onLivingUpdate(LivingUpdateEvent event) {
+			if (event.entity instanceof EntityPlayer) {
+				EntityPlayer player = (EntityPlayer) event.entity;
+				RINPlayerBoI props = RINPlayerBoI.get(player);
+				props.onUpdate();
+			}
+		}	
+		 
+
+		@SubscribeEvent
+		public void onLivingHurtEvent(LivingHurtEvent event) {
+			if (event.entity instanceof EntityPlayer) {
+				RINPlayerBoI rins = RINPlayerBoI.get((EntityPlayer) event.entity);
+				if(!rins.onhurtPlayer(event.ammount)){
+					event.setCanceled(true);
+				}
+			}
+		}
+
+		@SubscribeEvent
+		public void onLivingDropsEvent(LivingDropsEvent event) {
+			if(ConfigurationMoD.OnlydropByPlayer) {
+			if (event.entity instanceof EntityPlayer) {
+				double value = Math.random();
+				value = Math.round(100.0 * value);
+				if(value <= ConfigurationMoD.DROPCHANCE_BLUEHEARTS) {
+					ItemStack a = new ItemStack(ItemRegistry.Bluefull);
+					event.drops.add(new EntityItem(event.entity.worldObj, event.entity.posX, 
+				              event.entity.posY, event.entity.posZ, a));
+					
+					}
+				value = Math.random();
+				value = Math.round(100.0 * value);
+				if(value <= ConfigurationMoD.DROPCHANCE_BLACKHEARTS) {
+					ItemStack a = new ItemStack(ItemRegistry.Blackfull);
+					event.drops.add(new EntityItem(event.entity.worldObj, event.entity.posX, 
+				              event.entity.posY, event.entity.posZ, a));
+					
+					}
+				value = Math.random();
+				value = Math.round(100.0 * value);
+				if(value <= ConfigurationMoD.DROPCHANCE_REDHEARTS) {
+					ItemStack a = new ItemStack(ItemRegistry.Redfull);
+					event.drops.add(new EntityItem(event.entity.worldObj, event.entity.posX, 
+				              event.entity.posY, event.entity.posZ, a));
+					
+					}
+				value = Math.random();
+				value = Math.round(100.0 * value);
+				if(value <= ConfigurationMoD.DROPCHANCE_WHITEHEARTS) {
+					ItemStack a = new ItemStack(ItemRegistry.Whitefull);
+					event.drops.add(new EntityItem(event.entity.worldObj, event.entity.posX, 
+				              event.entity.posY, event.entity.posZ, a));
+					
+					}
+				}
+			}else {
+
+				if (event.entity instanceof EntityLivingBase) {
+					double value = Math.random();
+					value = Math.round(100.0 * value);
+					if(value <= ConfigurationMoD.DROPCHANCE_BLUEHEARTS) {
+						ItemStack a = new ItemStack(ItemRegistry.Bluefull);
+						event.drops.add(new EntityItem(event.entity.worldObj, event.entity.posX, 
+					              event.entity.posY, event.entity.posZ, a));
+						
+						}
+					value = Math.random();
+					value = Math.round(100.0 * value);
+					if(value <= ConfigurationMoD.DROPCHANCE_BLACKHEARTS) {
+						ItemStack a = new ItemStack(ItemRegistry.Blackfull);
+						event.drops.add(new EntityItem(event.entity.worldObj, event.entity.posX, 
+					              event.entity.posY, event.entity.posZ, a));
+						
+						}
+					value = Math.random();
+					value = Math.round(100.0 * value);
+					if(value <= ConfigurationMoD.DROPCHANCE_REDHEARTS) {
+						ItemStack a = new ItemStack(ItemRegistry.Redfull);
+						event.drops.add(new EntityItem(event.entity.worldObj, event.entity.posX, 
+					              event.entity.posY, event.entity.posZ, a));
+						
+						}
+					value = Math.random();
+					value = Math.round(100.0 * value);
+					if(value <= ConfigurationMoD.DROPCHANCE_WHITEHEARTS) {
+						ItemStack a = new ItemStack(ItemRegistry.Whitefull);
+						event.drops.add(new EntityItem(event.entity.worldObj, event.entity.posX, 
+					              event.entity.posY, event.entity.posZ, a));
+						
+						}
+					}
+			}
+		}
+
+
+		@SubscribeEvent
+		public void onPlayerUseItemEvent(PlayerUseItemEvent event) {
+			
+			if(PlayerSpells.get(event.entityPlayer) != null) {
+				PlayerSpells PlayerSpelllist = PlayerSpells.get(event.entityPlayer);
+				PlayerSpelllist.onUseItem(event.item);
+			}
+		}
+		
+		@SubscribeEvent
+		public void onLivingPickupEvent(EntityItemPickupEvent event) {
+			if(event.entityPlayer instanceof EntityPlayer) {
+			if(!ConfigurationMoD.cantakeheartsAsitem) {
+			if (event.item.getEntityItem().getItem() instanceof ItemHeart && event.entityPlayer != null) {
+				ItemHeart item = (ItemHeart) event.item.getEntityItem().getItem();
+				RINPlayerBoI rins = RINPlayerBoI.get(event.entityPlayer);
+				rins.addHeart(item.getRubrik());
+				event.item.getEntityItem().stackSize -= 1;
+					}
+				}
+			}
+		}
+}

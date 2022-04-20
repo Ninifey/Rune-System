@@ -1,0 +1,32 @@
+package de.rinonline.korinrpg.Helper;
+
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+
+public class SpellExsample extends Spell {
+
+
+
+	public SpellExsample() {
+		StartItemOne = Items.emerald;
+		StartItemTwo = Items.bone;
+		StartItemThree = Items.diamond;
+		
+		BaseDamage = 5;
+	}
+	
+	@Override
+	public void StartSpell(EntityPlayer player) {
+		
+		//--- what does the spell do?
+		
+		//---> shoot ---> consume Mana --> destroy ?
+		
+		
+		
+		
+		
+	}
+}

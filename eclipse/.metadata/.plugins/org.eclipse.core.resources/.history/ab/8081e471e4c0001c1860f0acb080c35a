@@ -1,0 +1,38 @@
+package de.rinonline.korinrpg;
+
+import cpw.mods.fml.common.registry.GameRegistry;
+import de.rinonline.korinrpg.Item.ItemHeart;
+import net.minecraft.item.Item;
+
+public class ItemRegistry {
+
+	public static Item Bluehalf,Bluefull,Blackhalf,Blackfull,Whitehalf,Whitefull,Redhalf,Redfull;
+
+	public ItemRegistry() {
+
+		Bluehalf = new ItemHeart(1).setUnlocalizedName("Bluehalf");
+		GameRegistry.registerItem(Bluehalf, "Bluehalf");
+
+		Bluefull = new ItemHeart(2).setUnlocalizedName("Bluefull");
+		GameRegistry.registerItem(Bluefull, "Bluefull");
+
+		Blackhalf = new ItemHeart(3).setUnlocalizedName("Blackhalf");
+		GameRegistry.registerItem(Blackhalf, "Blackhalf");
+
+		Blackfull = new ItemHeart(4).setUnlocalizedName("Blackfull");
+		GameRegistry.registerItem(Blackfull, "Blackfull");
+
+		Whitehalf = new ItemHeart(5).setUnlocalizedName("Whitehalf");
+		GameRegistry.registerItem(Whitehalf, "Whitehalf");
+
+		Whitefull = new ItemHeart(6).setUnlocalizedName("Whitefull");
+		GameRegistry.registerItem(Whitefull, "Whitefull");
+
+		Redhalf = new ItemHeart(7).setUnlocalizedName("Redhalf");
+		GameRegistry.registerItem(Redhalf, "Redhalf");
+
+		Redfull = new ItemHeart(8).setUnlocalizedName("Redfull");
+		GameRegistry.registerItem(Redfull, "Redfull");
+
+	}
+}

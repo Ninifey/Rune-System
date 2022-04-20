@@ -1,0 +1,31 @@
+package de.rinonline.korinrpg.Helper;
+
+import java.util.ArrayList;
+
+import net.minecraft.init.Items;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+
+public class SpellRegistry {
+
+	public Item StartItemOne,StartItemTwo,StartItemThree;
+	
+	public static ArrayList<Spell> getSpellList() {
+		ArrayList<Spell> tempList = new ArrayList<Spell>();
+		
+		
+		//--------here you add all Spells the Player can use
+		//------- in the Contructor of SpellExsample you set all needed Items to cast the Spell
+		tempList.add(new SpellExsample(Items.apple,Items.bone,Items.bone));
+		
+		//------------
+		
+		return tempList;
+		
+	}
+
+
+	public void onUseItem(ItemStack item) {
+	}
+
+}

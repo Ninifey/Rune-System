@@ -1,0 +1,20 @@
+package de.rinonline.korinrpg.Helper;
+
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+
+public class ItemStartEvent {
+
+	public static void onPlayerUseItem(EntityPlayer entityPlayer, ItemStack item) {
+		
+		//-----here you check if the player can / have learned Spells
+		if(PlayerSkills.get(entityPlayer) != null) {
+			
+			PlayerSkills PlayerSpelllist = PlayerSkills.get(entityPlayer);
+			PlayerSkills.onUseItem(item);
+			
+			
+		}
+	}
+
+}

@@ -1,0 +1,49 @@
+package de.rinonline.korinrpg.Item;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+import de.rinonline.korinrpg.RINMAIN;
+import de.rinonline.korinrpg.Helper.NBT.RINPlayerBoI;
+import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.world.World;
+
+public class ItemHeart extends Item{
+	
+	public int Rubrik;
+	
+	public int getRubrik() {
+		return Rubrik;
+	}
+
+
+	public ItemHeart(int RubrikString){
+		setMaxStackSize(1);
+		Rubrik = RubrikString;
+		setCreativeTab(CreativeTabs.tabMaterials);
+	}
+	
+	   
+	@SideOnly(Side.CLIENT)
+	public void registerIcons (IIconRegister iconRegister) {
+		this.itemIcon = iconRegister.registerIcon(RINMAIN.MODID + ":items/" + this.getUnlocalizedName().substring(5));
+	}
+	
+	@Override
+	public ItemStack onItemRightClick(ItemStack p_77659_1_, World p_77659_2_, EntityPlayer p_77659_3_)
+	   {
+		if(!p_77659_2_.isRemote){
+			RINPlayerBoI rins = RINPlayerBoI.get(p_77659_3_);
+			rins.addHeart(Rubrik);
+		}else {
+			p_77659_2_.playSound(p_77659_3_.posX, p_77659_3_.posY, p_77659_3_.posZ, RINMAIN.MODID+":heartpickup", 1.0F, 0.6F, false);
+
+		}
+
+			p_77659_1_.stackSize -= 1;
+	        return p_77659_1_;
+	   }
+}

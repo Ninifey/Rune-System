@@ -1,0 +1,13 @@
+package de.rinonline.korinrpg.Helper;
+
+import net.minecraft.item.Item;
+
+public class SpellExsample extends Spell {
+
+	public SpellExsample(Item ItemOne, Item ItemTwo, Item ItemThree) {
+		StartItemOne = ItemOne;
+		StartItemTwo = ItemTwo;
+		StartItemThree = ItemThree;
+	}
+
+}

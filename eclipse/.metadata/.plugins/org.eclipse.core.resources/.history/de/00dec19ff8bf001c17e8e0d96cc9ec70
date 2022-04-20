@@ -1,0 +1,44 @@
+package de.rinonline.korinrpg.Helper;
+
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+
+public class SpellExsample extends Spell {
+
+
+
+	public SpellExsample() {
+		StartItemOne = Items.emerald;
+		StartItemTwo = Items.bone;
+		StartItemThree = Items.diamond;
+		
+		BaseDamage = 5;
+	}
+	
+	@Override
+	@Override
+	public void onSpellStart(EntityPlayer player) {
+		
+		//--- triggert when the spell is activated
+	}
+	
+	
+	@Override
+	public void onSpellUpdate(EntityPlayer player) {
+	
+
+		//--- triggert when the spell is updated
+		
+	}
+	
+	
+	
+	@Override
+	public void onSpellEnd(EntityPlayer player) {
+
+		//--- triggert when the spell is ended
+		
+	}
+}

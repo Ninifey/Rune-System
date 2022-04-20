@@ -1,0 +1,202 @@
+package de.rinonline.korinrpg.Helper.Gui;
+
+import org.lwjgl.opengl.GL11;
+
+import cpw.mods.fml.common.eventhandler.EventPriority;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import de.rinonline.korinrpg.ConfigurationMoD;
+import de.rinonline.korinrpg.RINMAIN;
+import de.rinonline.korinrpg.Helper.NBT.RINPlayerBoI;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.event.RenderGameOverlayEvent;
+
+public class InterfaceGUI extends GuiScreen
+{
+	private Minecraft mc;
+
+	private static final ResourceLocation texturepathBars = new ResourceLocation(RINMAIN.MODID+":textures/gui/mana_bar2.png");
+
+	public InterfaceGUI(Minecraft mc)
+	{
+		super();
+		// We need this to invoke the render engine.
+		this.mc = mc;
+	}
+
+	
+	@SubscribeEvent(priority=EventPriority.HIGH)
+	public void onRenderExperienceBar(RenderGameOverlayEvent.Pre event) {
+
+		/*if(ConfigurationMoD.modthinkersContruct) {
+			if(!ConfigurationMoD.renderhealthbar) {
+	    if(event.type == ElementType.ARMOR)
+	    {      
+	    	event.setCanceled(true);
+	    		}	
+		    }	
+	    }	*/
+	 }	
+	
+	@SubscribeEvent(priority=EventPriority.HIGHEST)
+	public void onRenderExperienceBar(RenderGameOverlayEvent.Chat event) {
+		if(!ConfigurationMoD.renderhealthbar) {
+		
+		RINPlayerBoI rins = RINPlayerBoI.get(this.mc.thePlayer);
+		ScaledResolution res = new ScaledResolution(mc,mc.displayWidth,mc.displayHeight);   
+	   	 int sw = res.getScaledWidth();
+	   	 int sh = res.getScaledHeight();
+
+
+		   FontRenderer fontRender = this.mc.fontRenderer;
+		int xPos = sw/2;
+		int yPos = sh;
+		
+		
+
+
+	    GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+	   	this.mc.getTextureManager().bindTexture(texturepathBars);
+		
+
+	    float f = 0.00390625F;
+	    float f1 = 0.00390625F;
+	    Tessellator tessellator = Tessellator.instance;
+
+	    GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+
+	    
+	    
+
+	    if(!mc.thePlayer.capabilities.isCreativeMode) {
+
+	    
+		// HP Bar
+	    //Red Hearts
+	    int maxred = (int) (rins.getRedmaxhealth()-rins.getBlackmaxhealth()-rins.getBluemaxhealth()-rins.getWhitemaxhealth())+20;
+	    int cred =  (int) (rins.getRedmaxhealth()+20-rins.getBlackhealth()-rins.getBluehealth()-rins.getWhitehealth());
+	  
+	    //Blue Hearts
+	    int maxblue  =(int)  rins.getBluemaxhealth();
+	    int cblue = (int)  rins.getBluehealth();
+
+	    //Black Hearts
+	    int maxblack  =(int)  rins.getBlackmaxhealth();
+	    int cblack =(int)  rins.getBlackhealth();
+
+	    //White Hearts
+	    int maxwhite  =(int)  rins.getWhitemaxhealth();
+	    int cwhite =(int)  rins.getWhitehealth();
+
+	    int renderpos;
+	    int maxhearts = (maxblue+maxblack+maxwhite)/2;
+	    int renderhight = 10;
+	    int armorbarhight = -20;
+	    int renderwidte = 0;
+	    int rendindex = 0;
+	    float cyellow =  mc.thePlayer.getAbsorptionAmount();
+	    cred += (int)cyellow;
+	    maxhearts += (int)cyellow;
+
+	    if(!ConfigurationMoD.modthinkersContruct) {
+	    	if(maxred >= 20) {
+	    		armorbarhight -=10;
+	    		}
+	    	if(maxred >= 30) {
+	    		armorbarhight -= 10;
+	    		}
+	    	if(maxred >= 40) {
+	    		armorbarhight -= 10;
+	    		}
+	    	if(maxred >= 50) {
+	    		armorbarhight -= 10;
+	    		}
+	    	if(maxred >= 60) {
+	    		armorbarhight -= 10;
+	    		}
+	    	if(maxred >= 70) {
+	    		armorbarhight -= 10;
+	    		}
+	    	if(maxred >= 80) {
+	    		armorbarhight -= 10;
+	    		}
+	    	}
+
+		    //render Red Heartsbase
+			for(int i = 0; i<= maxhearts; ++i){
+				
+				//render blank hearts
+				if(i > renderhight-1) {renderhight += 10;
+			    }
+				if(i >= (10+renderwidte)) {renderwidte+=10;}
+				renderpos = (xPos -99)+((i+1-renderwidte)*8);
+				
+
+				//render hearts
+
+					if(cblue != 0) {
+						--cblue;
+						if(cblue >=1) {
+							rendindex = 3;	
+							--cblue;
+						}else {
+							rendindex = 4;	
+						}
+						drawTexturedModalRect(renderpos, yPos - 28-renderhight+armorbarhight, 0, 0, 9, 9);
+						drawTexturedModalRect(renderpos, yPos - 28-renderhight+armorbarhight, 0+(rendindex*9), 0, 9, 9);
+						}else {
+
+
+							if(cblack != 0) {
+								--cblack;
+								if(cblack >=1) {
+									rendindex = 5;	
+									--cblack;
+								}else {
+									rendindex = 6;	
+								}
+								drawTexturedModalRect(renderpos, yPos - 28-renderhight+armorbarhight, 0, 0, 9, 9);
+								drawTexturedModalRect(renderpos, yPos - 28-renderhight+armorbarhight, 0+(rendindex*9), 0, 9, 9);
+								}else {
+
+
+									if(cwhite != 0) {
+										--cwhite;
+										if(cwhite >=1) {
+											rendindex = 7;	
+											--cwhite;
+										}else {
+											rendindex = 8;	
+										}
+										drawTexturedModalRect(renderpos, yPos - 28-renderhight+armorbarhight, 0, 0, 9, 9);
+										drawTexturedModalRect(renderpos, yPos - 28-renderhight+armorbarhight, 0+(rendindex*9), 0, 9, 9);
+										
+
+									}
+								}
+						}
+					
+
+				if(cyellow != 0) {
+					
+				}
+			}
+
+		if(ConfigurationMoD.modthinkersContruct) {
+	    //Armourbar
+		double ar = rins.getArmour();
+		if(ar != 0) {
+	    double armour = ar/20*80;
+	    if(ConfigurationMoD.renderArmourbarBackground) {
+	    drawTexturedModalRect(xPos -91, yPos - 40-10, 0, 20, 81, 10);}
+	    drawTexturedModalRect(xPos -91, yPos - 40-10, 0, 10, (int) armour, 10);
+					}		
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,9 @@
+package de.rinonline.korinrpg.Helper;
+
+import net.minecraft.item.Item;
+
+public class Spell {
+
+	public Item StartItemOne,StartItemTwo,StartItemThree;
+	
+}
