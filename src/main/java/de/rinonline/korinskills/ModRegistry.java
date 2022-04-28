@@ -1,10 +1,14 @@
 package de.rinonline.korinskills;
 
 import cpw.mods.fml.common.registry.GameRegistry;
+import de.rinonline.korinskills.blocks.BlockStatue;
+import de.rinonline.korinskills.blocks.ItemBlockStatue;
+import de.rinonline.korinskills.blocks.TitleStatue;
 import de.rinonline.korinskills.crafting.ItemCrystalShard;
 import de.rinonline.korinskills.crafting.Runebench;
 import de.rinonline.korinskills.crafting.TileEntityRunebench;
 import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 
@@ -22,14 +26,16 @@ public class ModRegistry {
 	}
 
 	//------------- Blocks --------------------------------------------------------------------------------------------------
-	public static Block runebench,runebenchActive;
+	public static Block runebench,runebenchActive,statue;
 
 	public static void initialiseBlocks() {
 		runebench = new Runebench(false).setBlockName("runebench").setCreativeTab(CreativeTabs.tabBlock);
 		runebenchActive = new Runebench(true).setBlockName("runebenchActive");
+		statue = new BlockStatue(Material.iron, "statue");
 	}
 
 	public static void registerBlocks() {
+		GameRegistry.registerBlock(statue, ItemBlockStatue.class, "ItemBlockStatue");
 		GameRegistry.registerBlock(runebench, runebench.getUnlocalizedName());
 		GameRegistry.registerBlock(runebenchActive, runebenchActive.getUnlocalizedName());
 	}
@@ -49,5 +55,6 @@ public class ModRegistry {
 
 	public static void registerTitleEntitys() {
 		GameRegistry.registerTileEntity(TileEntityRunebench.class, "TileEntityRunebench");
+		GameRegistry.registerTileEntity(TitleStatue.class, "TitleStatue");
 	}
 }

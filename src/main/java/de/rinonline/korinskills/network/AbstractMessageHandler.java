@@ -5,7 +5,7 @@ import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import de.rinonline.korinskills.SKILLSMAIN;
+import de.rinonline.korinskills.SPELLMAIN;
 import net.minecraft.entity.player.EntityPlayer;
 
 public abstract class AbstractMessageHandler<T extends IMessage> implements IMessageHandler <T, IMessage>
@@ -20,10 +20,10 @@ public abstract IMessage handleServerMessage(EntityPlayer player, T message, Mes
 @Override
 public IMessage onMessage(T message, MessageContext ctx) {
 if (ctx.side.isClient()) {
-return handleClientMessage(SKILLSMAIN.proxy.getPlayerEntity(ctx), message, ctx);
+return handleClientMessage(SPELLMAIN.proxy.getPlayerEntity(ctx), message, ctx);
 } else {
 	System.out.println("aaaaa");
-return handleServerMessage(SKILLSMAIN.proxy.getPlayerEntity(ctx), message, ctx);
+return handleServerMessage(SPELLMAIN.proxy.getPlayerEntity(ctx), message, ctx);
 }
 }
 }

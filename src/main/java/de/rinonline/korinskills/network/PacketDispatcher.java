@@ -5,7 +5,7 @@ import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import cpw.mods.fml.relauncher.Side;
-import de.rinonline.korinskills.SKILLSMAIN;
+import de.rinonline.korinskills.SPELLMAIN;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 
@@ -13,7 +13,7 @@ public class PacketDispatcher
 {
  private static byte packetId = 0;
  
- private static final SimpleNetworkWrapper dispatcher = NetworkRegistry.INSTANCE.newSimpleChannel(SKILLSMAIN.MODID);
+ private static final SimpleNetworkWrapper dispatcher = NetworkRegistry.INSTANCE.newSimpleChannel(SPELLMAIN.MODID);
 
  public static final void registerPackets() {
 	 PacketDispatcher.registerMessage(SyncPlayerPropsMessage.class, SyncPlayerPropsMessage.class, Side.CLIENT);

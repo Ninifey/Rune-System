@@ -9,26 +9,26 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import de.rinonline.korinskills.network.PacketDispatcher;
-import de.rinonline.korinskills.skills.RINEventHandler;
+import de.rinonline.korinskills.skills.SpellEventHandler;
 import de.rinonline.korinskills.skills.SpellRegistry;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
 
-@Mod(modid = SKILLSMAIN.MODID, version = SKILLSMAIN.VERSION,name =SKILLSMAIN.name )
-public class SKILLSMAIN
+@Mod(modid = SPELLMAIN.MODID, version = SPELLMAIN.VERSION,name =SPELLMAIN.name )
+public class SPELLMAIN
 {
     public static final String MODID = "korinskills";
 	public static final String name = "Kingdom of RIN | Skills";
     public static final String VERSION = "1.0 Beta";
     
 
-	public static SKILLSMAIN instance;
+	public static SPELLMAIN instance;
 
 	public static SpellRegistry Spellregistry;
 
 	public static Configuration config;
 	
-	public SKILLSMAIN() {
+	public SPELLMAIN() {
 		instance = this;
 }
 
@@ -55,11 +55,12 @@ public class SKILLSMAIN
     {	
     	
 		PacketDispatcher.registerPackets();
-		
-		RINEventHandler events = new RINEventHandler();
+		SpellEventHandler events = new SpellEventHandler();
         MinecraftForge.EVENT_BUS.register(events);
         FMLCommonHandler.instance().bus().register(events);
 		NetworkRegistry.INSTANCE.registerGuiHandler(instance, new ModGuiHandler());
+		
+		proxy.registerNeueRender();
     }
     
     @EventHandler

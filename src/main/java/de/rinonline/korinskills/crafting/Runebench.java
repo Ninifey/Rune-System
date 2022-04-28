@@ -5,7 +5,7 @@ import java.util.Random;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import de.rinonline.korinskills.ModRegistry;
-import de.rinonline.korinskills.SKILLSMAIN;
+import de.rinonline.korinskills.SPELLMAIN;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
@@ -39,9 +39,9 @@ public class Runebench extends BlockContainer {
 
 	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister iconregister) {
-		this.blockIcon = iconregister.registerIcon(SKILLSMAIN.MODID + ":RunebenchSide");
-		this.front = iconregister.registerIcon(this.isBurning2 ? SKILLSMAIN.MODID + ":RunebenchActive" : SKILLSMAIN.MODID + ":RunebenchInactive");
-		this.top = iconregister.registerIcon(SKILLSMAIN.MODID + ":RunebenchTop");
+		this.blockIcon = iconregister.registerIcon(SPELLMAIN.MODID + ":RunebenchSide");
+		this.front = iconregister.registerIcon(this.isBurning2 ? SPELLMAIN.MODID + ":RunebenchActive" : SPELLMAIN.MODID + ":RunebenchInactive");
+		this.top = iconregister.registerIcon(SPELLMAIN.MODID + ":RunebenchTop");
 	}
 
 	public IIcon getIcon(int side, int meta) {
@@ -55,7 +55,7 @@ public class Runebench extends BlockContainer {
 	}
 
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int par6, float par7, float par8, float par9) {
-		player.openGui(SKILLSMAIN.instance, 0, world, x, y, z);
+		player.openGui(SPELLMAIN.instance, 0, world, x, y, z);
 		return true;
 	}
 

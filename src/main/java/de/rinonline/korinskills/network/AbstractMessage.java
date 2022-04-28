@@ -8,7 +8,7 @@ import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 import cpw.mods.fml.relauncher.Side;
-import de.rinonline.korinskills.SKILLSMAIN;
+import de.rinonline.korinskills.SPELLMAIN;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.network.Packet;
@@ -105,9 +105,9 @@ public abstract class AbstractMessage<T extends AbstractMessage<T>> implements I
 	@Override
 	public final IMessage onMessage(T msg, MessageContext ctx) {
 		if (ctx.side.name() == "CLIENT") {
-			msg.process(SKILLSMAIN.proxy.getPlayerEntity(ctx), ctx.side);
+			msg.process(SPELLMAIN.proxy.getPlayerEntity(ctx), ctx.side);
 		} else if (ctx.side.name() == "SERVER");{
-			msg.process(SKILLSMAIN.proxy.getPlayerEntity(ctx), ctx.side);
+			msg.process(SPELLMAIN.proxy.getPlayerEntity(ctx), ctx.side);
 		}
 		return null;
 	}

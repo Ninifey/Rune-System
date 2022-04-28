@@ -54,41 +54,41 @@ public static final String 	OnlydropByPlayer_DES = "Hearts only drop by Playerki
 
 
 public static void loadConfig(){
-	FMLCommonHandler.instance().bus().register(SKILLSMAIN.instance);
+	FMLCommonHandler.instance().bus().register(SPELLMAIN.instance);
 	  
-	final String CATEGORY_HEARTMOD = SKILLSMAIN.config.CATEGORY_GENERAL + SKILLSMAIN.config.CATEGORY_SPLITTER + "Binding of Isaac Heart Mod DROPCHANCES";
-	SKILLSMAIN.config.addCustomCategoryComment(CATEGORY_HEARTMOD, "DROPCHANCES");
-	DROPCHANCE_REDHEARTS = SKILLSMAIN.config.get(CATEGORY_HEARTMOD, "Redheart dropchance in percent 100 = 100%", 0.00).getDouble();  
-	DROPCHANCE_BLUEHEARTS = SKILLSMAIN.config.get(CATEGORY_HEARTMOD, "Blueheart dropchance in percent 100 = 100%", 2.00).getDouble();  
-	DROPCHANCE_BLACKHEARTS = SKILLSMAIN.config.get(CATEGORY_HEARTMOD, "Blackheart dropchance in percent 100 = 100%", 1.00).getDouble();  
-	DROPCHANCE_WHITEHEARTS = SKILLSMAIN.config.get(CATEGORY_HEARTMOD, "Whiteheart dropchance in percent 100 = 100%", 0.50).getDouble();  
-	final String CATEGORY_HEARTMOD2 = SKILLSMAIN.config.CATEGORY_GENERAL + SKILLSMAIN.config.CATEGORY_SPLITTER + "Binding of Isaac Heart Mod GENERAL";
-	SKILLSMAIN.config.addCustomCategoryComment(CATEGORY_HEARTMOD2, "GENERAL");
-	dropchancered = SKILLSMAIN.config.get(CATEGORY_HEARTMOD2, DROP_HALF_HEARTS_DEFAULT_DES, DROP_HALF_HEARTS_DEFAULT).getBoolean(DROP_HALF_HEARTS_DEFAULT);
-	explosionbreakblock = SKILLSMAIN.config.get(CATEGORY_HEARTMOD2, explosion_should_break_Blocks_DES, explosion_should_break_Blocks).getBoolean(explosion_should_break_Blocks);
-	explosionbreakEntitys = SKILLSMAIN.config.get(CATEGORY_HEARTMOD2, explosion_break_Entitys_DES, explosion_break_Entitys).getBoolean(explosion_break_Entitys);
-	cantakeheartsAsitem = SKILLSMAIN.config.get(CATEGORY_HEARTMOD2, Player_can_take_Hearts_DES, Player_can_take_Hearts).getBoolean(Player_can_take_Hearts);
-	saveHeartsondeathe = SKILLSMAIN.config.get(CATEGORY_HEARTMOD2, saveHeartsondeath_DES, saveHeartsondeath).getBoolean(saveHeartsondeath);
-	WHITEHEART_TIME = SKILLSMAIN.config.get(CATEGORY_HEARTMOD2, "Whiteheart time to get to a Redheart in secounds", 360).getDouble();  
-	MAXHEARTS = SKILLSMAIN.config.get(CATEGORY_HEARTMOD2, "Max Redhearts the player could get.", 20).getInt();  
-	MAXHEARTSBLUE = SKILLSMAIN.config.get(CATEGORY_HEARTMOD2, "Max Bluehearts the player could get.", 20).getInt();  
-	MAXHEARTSBLACK = SKILLSMAIN.config.get(CATEGORY_HEARTMOD2, "Max Blackhearts the player could get.", 20).getInt();  
-	MAXHEARTSWHITE = SKILLSMAIN.config.get(CATEGORY_HEARTMOD2, "Max Whitehearts the player could get.", 20).getInt();  
-	MAXHEARTSREDWHITE = SKILLSMAIN.config.get(CATEGORY_HEARTMOD2, "Max Redhearts gained by Whitehearts the player could get.", 10).getInt();  
-	losewhitehearts = SKILLSMAIN.config.get(CATEGORY_HEARTMOD2, losewhitehearts_DES, losewhiteheartsd).getBoolean(losewhiteheartsd);
-	final String CATEGORY_HEARTMOD3 = SKILLSMAIN.config.CATEGORY_GENERAL + SKILLSMAIN.config.CATEGORY_SPLITTER + "Binding of Isaac Heart Mod Interface";
-	SKILLSMAIN.config.addCustomCategoryComment(CATEGORY_HEARTMOD3, "Interface");
-	renderArmourbarBackground = SKILLSMAIN.config.get(CATEGORY_HEARTMOD3, RENDER_ARMOUR_BACKGROUND_DES, RENDER_ARMOUR_BACKGROUND).getBoolean(RENDER_ARMOUR_BACKGROUND);
-	renderhealthbar = SKILLSMAIN.config.get(CATEGORY_HEARTMOD3, RENDER_VANILLA_HEALTH_DES, RENDER_VANILLA_HEALTH).getBoolean(RENDER_VANILLA_HEALTH);
-	SKILLSMAIN.config.addCustomCategoryComment(CATEGORY_HEARTMOD3, "Mod compitable");
-	modthinkersContruct = SKILLSMAIN.config.get(CATEGORY_HEARTMOD3, mod_thinkers_Contruct_DES, mod_thinkers_Contruct).getBoolean(mod_thinkers_Contruct);
-	OnlydropByPlayer = SKILLSMAIN.config.get(CATEGORY_HEARTMOD3, OnlydropByPlayer_DES, OnlydropByPlayerd).getBoolean(OnlydropByPlayerd);
+	final String CATEGORY_HEARTMOD = SPELLMAIN.config.CATEGORY_GENERAL + SPELLMAIN.config.CATEGORY_SPLITTER + "Binding of Isaac Heart Mod DROPCHANCES";
+	SPELLMAIN.config.addCustomCategoryComment(CATEGORY_HEARTMOD, "DROPCHANCES");
+	DROPCHANCE_REDHEARTS = SPELLMAIN.config.get(CATEGORY_HEARTMOD, "Redheart dropchance in percent 100 = 100%", 0.00).getDouble();  
+	DROPCHANCE_BLUEHEARTS = SPELLMAIN.config.get(CATEGORY_HEARTMOD, "Blueheart dropchance in percent 100 = 100%", 2.00).getDouble();  
+	DROPCHANCE_BLACKHEARTS = SPELLMAIN.config.get(CATEGORY_HEARTMOD, "Blackheart dropchance in percent 100 = 100%", 1.00).getDouble();  
+	DROPCHANCE_WHITEHEARTS = SPELLMAIN.config.get(CATEGORY_HEARTMOD, "Whiteheart dropchance in percent 100 = 100%", 0.50).getDouble();  
+	final String CATEGORY_HEARTMOD2 = SPELLMAIN.config.CATEGORY_GENERAL + SPELLMAIN.config.CATEGORY_SPLITTER + "Binding of Isaac Heart Mod GENERAL";
+	SPELLMAIN.config.addCustomCategoryComment(CATEGORY_HEARTMOD2, "GENERAL");
+	dropchancered = SPELLMAIN.config.get(CATEGORY_HEARTMOD2, DROP_HALF_HEARTS_DEFAULT_DES, DROP_HALF_HEARTS_DEFAULT).getBoolean(DROP_HALF_HEARTS_DEFAULT);
+	explosionbreakblock = SPELLMAIN.config.get(CATEGORY_HEARTMOD2, explosion_should_break_Blocks_DES, explosion_should_break_Blocks).getBoolean(explosion_should_break_Blocks);
+	explosionbreakEntitys = SPELLMAIN.config.get(CATEGORY_HEARTMOD2, explosion_break_Entitys_DES, explosion_break_Entitys).getBoolean(explosion_break_Entitys);
+	cantakeheartsAsitem = SPELLMAIN.config.get(CATEGORY_HEARTMOD2, Player_can_take_Hearts_DES, Player_can_take_Hearts).getBoolean(Player_can_take_Hearts);
+	saveHeartsondeathe = SPELLMAIN.config.get(CATEGORY_HEARTMOD2, saveHeartsondeath_DES, saveHeartsondeath).getBoolean(saveHeartsondeath);
+	WHITEHEART_TIME = SPELLMAIN.config.get(CATEGORY_HEARTMOD2, "Whiteheart time to get to a Redheart in secounds", 360).getDouble();  
+	MAXHEARTS = SPELLMAIN.config.get(CATEGORY_HEARTMOD2, "Max Redhearts the player could get.", 20).getInt();  
+	MAXHEARTSBLUE = SPELLMAIN.config.get(CATEGORY_HEARTMOD2, "Max Bluehearts the player could get.", 20).getInt();  
+	MAXHEARTSBLACK = SPELLMAIN.config.get(CATEGORY_HEARTMOD2, "Max Blackhearts the player could get.", 20).getInt();  
+	MAXHEARTSWHITE = SPELLMAIN.config.get(CATEGORY_HEARTMOD2, "Max Whitehearts the player could get.", 20).getInt();  
+	MAXHEARTSREDWHITE = SPELLMAIN.config.get(CATEGORY_HEARTMOD2, "Max Redhearts gained by Whitehearts the player could get.", 10).getInt();  
+	losewhitehearts = SPELLMAIN.config.get(CATEGORY_HEARTMOD2, losewhitehearts_DES, losewhiteheartsd).getBoolean(losewhiteheartsd);
+	final String CATEGORY_HEARTMOD3 = SPELLMAIN.config.CATEGORY_GENERAL + SPELLMAIN.config.CATEGORY_SPLITTER + "Binding of Isaac Heart Mod Interface";
+	SPELLMAIN.config.addCustomCategoryComment(CATEGORY_HEARTMOD3, "Interface");
+	renderArmourbarBackground = SPELLMAIN.config.get(CATEGORY_HEARTMOD3, RENDER_ARMOUR_BACKGROUND_DES, RENDER_ARMOUR_BACKGROUND).getBoolean(RENDER_ARMOUR_BACKGROUND);
+	renderhealthbar = SPELLMAIN.config.get(CATEGORY_HEARTMOD3, RENDER_VANILLA_HEALTH_DES, RENDER_VANILLA_HEALTH).getBoolean(RENDER_VANILLA_HEALTH);
+	SPELLMAIN.config.addCustomCategoryComment(CATEGORY_HEARTMOD3, "Mod compitable");
+	modthinkersContruct = SPELLMAIN.config.get(CATEGORY_HEARTMOD3, mod_thinkers_Contruct_DES, mod_thinkers_Contruct).getBoolean(mod_thinkers_Contruct);
+	OnlydropByPlayer = SPELLMAIN.config.get(CATEGORY_HEARTMOD3, OnlydropByPlayer_DES, OnlydropByPlayerd).getBoolean(OnlydropByPlayerd);
 	
 
 
-	if(SKILLSMAIN.config.hasChanged()){
+	if(SPELLMAIN.config.hasChanged()){
 
-		SKILLSMAIN.config.save();
+		SPELLMAIN.config.save();
 		}
 	}
 

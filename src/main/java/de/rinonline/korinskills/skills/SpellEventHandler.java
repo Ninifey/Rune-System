@@ -14,7 +14,7 @@ import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 
 
-public class RINEventHandler
+public class SpellEventHandler
 
 {
 	@SubscribeEvent
