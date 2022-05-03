@@ -37,7 +37,7 @@ public class ModRegistry {
 	}
 
 	public static void registerBlocks() {
-		GameRegistry.registerBlock(statue, ItemBlockStatue.class, "ItemBlockStatue");
+		GameRegistry.registerBlock(statue, "statue");
 		GameRegistry.registerBlock(runebench, runebench.getUnlocalizedName());
 		GameRegistry.registerBlock(runebenchActive, runebenchActive.getUnlocalizedName());
 		GameRegistry.registerBlock(emptyBlock, emptyBlock.getUnlocalizedName());

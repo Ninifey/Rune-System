@@ -38,13 +38,10 @@ public class RenderStatue extends TileEntitySpecialRenderer {
 		GL11.glTranslatef((float)x +0.5F, (float)y+1.5F, (float)z +0.5F);
 		GL11.glRotatef(180, 0.0F, 0.0F, 1.0F);
 		
-		GL11.glRotatef((meta*90)-00, 0.0F, 1.0F, 0.0F);
-			
+		GL11.glRotatef((meta*90)-00, 0.0F, 1.0F, 0.0F);	
 			this.bindTexture(texture);
-
 		GL11.glPushMatrix(); 
 			this.model.renderModel(0.0625F,b);
-			
 		GL11.glPopMatrix();
 		GL11.glPopMatrix();
 

@@ -32,16 +32,7 @@ public class BlockStatue extends BlockContainer {
 		super(p_i45386_1_);
 		b = TextureName;
 		setCreativeTab(CreativeTabs.tabBlock);
-    }
-
-	@Override
-    public void setBlockBoundsBasedOnState(IBlockAccess blockAccess, int x, int y, int z) {
-    	if(blockAccess.getBlock(x, y-1, z) instanceof BlockStatue) {
-			this.setBlockBounds(0.2F,0,0.2F, 0.8F,2.0F,0.8F);
-    	}else {
-			this.setBlockBounds(0,0,0, 1F,1F,1F);
-    	}
-    	
+		setBlockBounds(0.1F,0,0.1F, 0.9F,1.0F,0.9F);
     }
 	    @SideOnly(Side.CLIENT)
 	    public IIcon getIcon(int p_149691_1_, int p_149691_2_)
@@ -77,7 +68,9 @@ public class BlockStatue extends BlockContainer {
 	    
 	    public void breakBlock(World p_149749_1_, int p_149749_2_, int p_149749_3_, int p_149749_4_, Block p_149749_5_, int p_149749_6_)
 	    {
-	    	System.out.println("sii");
+	        if(p_149749_1_.getBlock(p_149749_2_, p_149749_3_ - 1, p_149749_4_)instanceof BlockStatue) {
+	    	p_149749_1_.setBlock(p_149749_2_, p_149749_3_+1, p_149749_4_, Blocks.air);
+	        }
 	    }
 
 	    public void onBlockPlacedBy(World p_149689_1_, int p_149689_2_, int p_149689_3_, int p_149689_4_, EntityLivingBase p_149689_5_, ItemStack p_149689_6_)
@@ -107,7 +100,7 @@ public class BlockStatue extends BlockContainer {
 	            p_149689_1_.setBlockMetadataWithNotify(p_149689_2_, p_149689_3_, p_149689_4_, 0+i | i1, 2);
 	        }
 	        if(p_149689_1_.getBlock(p_149689_2_, p_149689_3_ - 1, p_149689_4_)instanceof BlockStatue) {
-	        	p_149689_1_.setBlock(p_149689_2_, p_149689_3_, p_149689_4_, ModRegistry.emptyBlock,2,3);
+	        	p_149689_1_.setBlock(p_149689_2_, p_149689_3_ + 1, p_149689_4_, ModRegistry.emptyBlock,0,3);
 	        }
 	    }
 	    
