@@ -55,15 +55,19 @@ public class ModelStatue extends ModelBase {
 
 
 	}
-	public void renderModel(float f) {
+	public void renderModel(float f, boolean b) {
 
-		bone.render(f);
-		bone2.render(f);
+		if(b) {
+			bone.render(f);
+		}else {
+			bone2.render(f);
+		}
 	}
 
 	@Override
 	public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
-	
+		bone.render(f5);
+		bone2.render(f5);
 
 	}
 

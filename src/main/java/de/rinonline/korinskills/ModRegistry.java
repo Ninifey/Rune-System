@@ -1,6 +1,7 @@
 package de.rinonline.korinskills;
 
 import cpw.mods.fml.common.registry.GameRegistry;
+import de.rinonline.korinskills.blocks.BlockEmpty;
 import de.rinonline.korinskills.blocks.BlockStatue;
 import de.rinonline.korinskills.blocks.ItemBlockStatue;
 import de.rinonline.korinskills.blocks.TitleStatue;
@@ -26,18 +27,20 @@ public class ModRegistry {
 	}
 
 	//------------- Blocks --------------------------------------------------------------------------------------------------
-	public static Block runebench,runebenchActive,statue;
+	public static Block runebench,runebenchActive,statue,emptyBlock;
 
 	public static void initialiseBlocks() {
 		runebench = new Runebench(false).setBlockName("runebench").setCreativeTab(CreativeTabs.tabBlock);
 		runebenchActive = new Runebench(true).setBlockName("runebenchActive");
 		statue = new BlockStatue(Material.iron, "statue");
+		emptyBlock = new BlockEmpty().setBlockName("emptyBlock");
 	}
 
 	public static void registerBlocks() {
 		GameRegistry.registerBlock(statue, ItemBlockStatue.class, "ItemBlockStatue");
 		GameRegistry.registerBlock(runebench, runebench.getUnlocalizedName());
 		GameRegistry.registerBlock(runebenchActive, runebenchActive.getUnlocalizedName());
+		GameRegistry.registerBlock(emptyBlock, emptyBlock.getUnlocalizedName());
 	}
 
 	//------------- Items --------------------------------------------------------------------------------------------------
