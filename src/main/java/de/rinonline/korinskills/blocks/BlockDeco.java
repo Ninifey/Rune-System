@@ -21,14 +21,14 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-public class BlockStatue extends BlockContainer {
+public class BlockDeco extends BlockContainer {
 
-	public static final String[] StatueStates = new String[] {"north", "east", "south", "west"};
+	public static final String[] BlockDecoStates = new String[] {"statue_north", "statue_east", "statue_south", "statue_west", "stone_coffin"};
 	private String b;
     @SideOnly(Side.CLIENT)
-    private IIcon[] StatueIIcons;
+    private IIcon[] BlockDecoIIcons;
 	
-	public BlockStatue(Material p_i45386_1_,String TextureName) {
+	public BlockDeco(Material p_i45386_1_,String TextureName) {
 		super(p_i45386_1_);
 		b = TextureName;
 		setCreativeTab(CreativeTabs.tabBlock);
@@ -37,18 +37,18 @@ public class BlockStatue extends BlockContainer {
 	    @SideOnly(Side.CLIENT)
 	    public IIcon getIcon(int p_149691_1_, int p_149691_2_)
 	    {
-	        if (p_149691_2_ < 0 || p_149691_2_ >= this.StatueIIcons.length)
+	        if (p_149691_2_ < 0 || p_149691_2_ >= this.BlockDecoIIcons.length)
 	        {
 	            p_149691_2_ = 0;
 	        }
 
-	        return this.StatueIIcons[p_149691_2_];
+	        return this.BlockDecoIIcons[p_149691_2_];
 	    }
 	    
 	    @SideOnly(Side.CLIENT)
 	    public void getSubBlocks(Item p_149666_1_, CreativeTabs p_149666_2_, List p_149666_3_)
 	    {
-	    	 for (int i = 0; i < this.StatueStates.length; ++i)
+	    	 for (int i = 0; i < this.BlockDecoStates.length; ++i)
 		        {
 	 	    	p_149666_3_.add(new ItemStack(p_149666_1_, 1, i));
 		        }
@@ -57,18 +57,18 @@ public class BlockStatue extends BlockContainer {
 	    @SideOnly(Side.CLIENT)
 	    public void registerBlockIcons(IIconRegister p_149651_1_)
 	    {
-	        this.StatueIIcons = new IIcon[StatueStates.length];
+	        this.BlockDecoIIcons = new IIcon[BlockDecoStates.length];
 
-	        for (int i = 0; i < this.StatueIIcons.length; ++i)
+	        for (int i = 0; i < this.BlockDecoIIcons.length; ++i)
 	        {
-	        	this.StatueIIcons[i] = p_149651_1_.registerIcon(SPELLMAIN.MODID+":"+b);  	
+	        	this.BlockDecoIIcons[i] = p_149651_1_.registerIcon(SPELLMAIN.MODID+":"+b);  	
 	        }
 	    }
 	    
 	    
 	    public void breakBlock(World p_149749_1_, int p_149749_2_, int p_149749_3_, int p_149749_4_, Block p_149749_5_, int p_149749_6_)
 	    {
-	        if(p_149749_1_.getBlock(p_149749_2_, p_149749_3_ - 1, p_149749_4_)instanceof BlockStatue) {
+	        if(p_149749_1_.getBlock(p_149749_2_, p_149749_3_ - 1, p_149749_4_)instanceof BlockDeco) {
 	    	p_149749_1_.setBlock(p_149749_2_, p_149749_3_+1, p_149749_4_, Blocks.air);
 	        }
 	    }
@@ -76,6 +76,7 @@ public class BlockStatue extends BlockContainer {
 	    public void onBlockPlacedBy(World p_149689_1_, int p_149689_2_, int p_149689_3_, int p_149689_4_, EntityLivingBase p_149689_5_, ItemStack p_149689_6_)
 	    {
 	    	int i = p_149689_1_.getBlockMetadata(p_149689_2_, p_149689_3_, p_149689_4_);
+	    	if(i <= 3) {
 	    	if(i >= 4&& !(i >= 8)) {i = 4; }else if (i >= 8){i = 8;}
 	        int l = MathHelper.floor_double((double)(p_149689_5_.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
 	        int l2 = MathHelper.floor_double((double)(p_149689_5_.rotationPitch * 4.0F / 180.0F) + 0.5D) & 2;
@@ -99,8 +100,9 @@ public class BlockStatue extends BlockContainer {
 	        {
 	            p_149689_1_.setBlockMetadataWithNotify(p_149689_2_, p_149689_3_, p_149689_4_, 0+i | i1, 2);
 	        }
-	        if(p_149689_1_.getBlock(p_149689_2_, p_149689_3_ - 1, p_149689_4_)instanceof BlockStatue) {
+	        if(p_149689_1_.getBlock(p_149689_2_, p_149689_3_ - 1, p_149689_4_)instanceof BlockDeco) {
 	        	p_149689_1_.setBlock(p_149689_2_, p_149689_3_ + 1, p_149689_4_, ModRegistry.emptyBlock,0,3);
+	        	}
 	        }
 	    }
 	    
