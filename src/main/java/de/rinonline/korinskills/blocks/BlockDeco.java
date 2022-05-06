@@ -130,7 +130,7 @@ public class BlockDeco extends BlockContainer {
 	    public TileEntity createNewTileEntity(World p_149915_1_, int p_149915_2_) {
 	    try
 	    {
-	        return new TitleStatue();
+	        return new TitleDeco();
 	    }
 	    catch (Exception var3)
 	    {

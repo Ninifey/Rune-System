@@ -32,7 +32,7 @@ public class RenderBlockDeco extends TileEntitySpecialRenderer {
 	{
 		
     	int meta = te.getWorldObj().getBlockMetadata(te.xCoord,te.yCoord,te.zCoord);
-    	System.out.println("set "+meta);
+   
     	if(meta <=3) {
     		boolean b = te.getWorldObj().getBlock(te.xCoord,te.yCoord-1,te.zCoord) instanceof BlockDeco;
     		GL11.glPushMatrix();

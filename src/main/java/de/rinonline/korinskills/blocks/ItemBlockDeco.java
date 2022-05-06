@@ -9,9 +9,9 @@ import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumChatFormatting;
 
-public class ItemBlockStatue extends ItemBlock {
+public class ItemBlockDeco extends ItemBlock {
 
-public ItemBlockStatue(Block cable) {
+public ItemBlockDeco(Block cable) {
 	super(cable);
 	this.setHasSubtypes(true);
 	this.setUnlocalizedName(cable.getUnlocalizedName());

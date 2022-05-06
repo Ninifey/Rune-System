@@ -3,8 +3,8 @@ package de.rinonline.korinskills;
 import cpw.mods.fml.common.registry.GameRegistry;
 import de.rinonline.korinskills.blocks.BlockEmpty;
 import de.rinonline.korinskills.blocks.BlockDeco;
-import de.rinonline.korinskills.blocks.ItemBlockStatue;
-import de.rinonline.korinskills.blocks.TitleStatue;
+import de.rinonline.korinskills.blocks.ItemBlockDeco;
+import de.rinonline.korinskills.blocks.TitleDeco;
 import de.rinonline.korinskills.crafting.ItemCrystalShard;
 import de.rinonline.korinskills.crafting.Runebench;
 import de.rinonline.korinskills.crafting.TileEntityRunebench;
@@ -37,7 +37,7 @@ public class ModRegistry {
 	}
 
 	public static void registerBlocks() {
-		GameRegistry.registerBlock(statue,ItemBlockStatue.class, "statue");
+		GameRegistry.registerBlock(statue,ItemBlockDeco.class, "statue");
 		GameRegistry.registerBlock(runebench, runebench.getUnlocalizedName());
 		GameRegistry.registerBlock(runebenchActive, runebenchActive.getUnlocalizedName());
 		GameRegistry.registerBlock(emptyBlock, emptyBlock.getUnlocalizedName());
@@ -58,6 +58,6 @@ public class ModRegistry {
 
 	public static void registerTitleEntitys() {
 		GameRegistry.registerTileEntity(TileEntityRunebench.class, "TileEntityRunebench");
-		GameRegistry.registerTileEntity(TitleStatue.class, "TitleStatue");
+		GameRegistry.registerTileEntity(TitleDeco.class, "TitleStatue");
 	}
 }

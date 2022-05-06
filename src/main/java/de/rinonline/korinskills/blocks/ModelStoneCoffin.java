@@ -3,45 +3,65 @@ package de.rinonline.korinskills.blocks;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelBox;
 import net.minecraft.client.model.ModelRenderer;
-import net.minecraft.entity.Entity;
 
 public class ModelStoneCoffin extends ModelBase {
-		private final ModelRenderer corpse;
-		private final ModelRenderer coffin_lid;
-		private final ModelRenderer bb_main;
+	private final ModelRenderer bb_main;
+	private final ModelRenderer bb_cube;
+	private static int x = 1;
 
-		public ModelStoneCoffin() {
-			textureWidth = 256;
-			textureHeight = 256;
+	public ModelStoneCoffin() {
+		textureWidth = 128;
+		textureHeight = 128;
 
-			corpse = new ModelRenderer(this);
-			corpse.setRotationPoint(0.0F, 15.0F, 0.0F);
-			corpse.cubeList.add(new ModelBox(corpse, 92, 50, -4.0F, -1.0F, -7.8333F, 8, 8, 8, 0.0F));
-			corpse.cubeList.add(new ModelBox(corpse, 92, 16, -4.0F, 1.0F, 12.1667F, 4, 4, 12, 0.0F));
-			corpse.cubeList.add(new ModelBox(corpse, 92, 0, -8.0F, 1.0F, 0.1667F, 4, 4, 12, 0.0F));
-			corpse.cubeList.add(new ModelBox(corpse, 0, 64, 4.0F, 1.0F, 0.1667F, 4, 4, 12, 0.0F));
-			corpse.cubeList.add(new ModelBox(corpse, 0, 0, -4.0F, 1.0F, 0.1667F, 8, 4, 12, 0.0F));
-			corpse.cubeList.add(new ModelBox(corpse, 0, 48, 0.0F, 1.0F, 12.1667F, 4, 4, 12, 0.0F));
+		bb_main = new ModelRenderer(this);
+		bb_main.setRotationPoint(0.0F, 24.0F, 0.0F);
+		bb_main.cubeList.add(new ModelBox(bb_main, 48, 50, -8.0F, -4.0F, -8.0F, 16, 2, 16, 0.0F));
+		bb_main.cubeList.add(new ModelBox(bb_main, 60, 0, -6.0F, -12.0F, -6.0F, 12, 8, 12, 0.0F));
+		bb_main.cubeList.add(new ModelBox(bb_main, 0, 46, -8.0F, -16.0F, -8.0F, 16, 4, 16, 0.0F));
+		bb_main.cubeList.add(new ModelBox(bb_main, 0, 0, -10.0F, -20.0F, -10.0F, 20, 4, 20, 0.0F));
+		bb_main.cubeList.add(new ModelBox(bb_main, 48, 46, -10.0F, -28.0F, 6.0F, 4, 8, 4, 0.0F));
+		bb_main.cubeList.add(new ModelBox(bb_main, 0, 46, 6.0F, -28.0F, 6.0F, 4, 8, 4, 0.0F));
+		bb_main.cubeList.add(new ModelBox(bb_main, 0, 24, 6.0F, -28.0F, -10.0F, 4, 8, 4, 0.0F));
+		bb_main.cubeList.add(new ModelBox(bb_main, 0, 0, -10.0F, -28.0F, -10.0F, 4, 8, 4, 0.0F));
+		bb_main.cubeList.add(new ModelBox(bb_main, 56, 58, -10.0F, -22.0F, -6.0F, 2, 2, 2, 0.0F));
+		bb_main.cubeList.add(new ModelBox(bb_main, 48, 58, -10.0F, -22.0F, 4.0F, 2, 2, 2, 0.0F));
+		bb_main.cubeList.add(new ModelBox(bb_main, 0, 58, 8.0F, -22.0F, -6.0F, 2, 2, 2, 0.0F));
+		bb_main.cubeList.add(new ModelBox(bb_main, 8, 40, 8.0F, -22.0F, 4.0F, 2, 2, 2, 0.0F));
+		bb_main.cubeList.add(new ModelBox(bb_main, 8, 36, -6.0F, -22.0F, -10.0F, 2, 2, 2, 0.0F));
+		bb_main.cubeList.add(new ModelBox(bb_main, 0, 36, 4.0F, -22.0F, -10.0F, 2, 2, 2, 0.0F));
+		bb_main.cubeList.add(new ModelBox(bb_main, 12, 24, 4.0F, -22.0F, 8.0F, 2, 2, 2, 0.0F));
+		bb_main.cubeList.add(new ModelBox(bb_main, 8, 16, -6.0F, -22.0F, 8.0F, 2, 2, 2, 0.0F));
+		bb_main.cubeList.add(new ModelBox(bb_main, 0, 16, 6.0F, -30.0F, 6.0F, 2, 2, 2, 0.0F));
+		bb_main.cubeList.add(new ModelBox(bb_main, 8, 12, -8.0F, -30.0F, 6.0F, 2, 2, 2, 0.0F));
+		bb_main.cubeList.add(new ModelBox(bb_main, 12, 0, -8.0F, -30.0F, -8.0F, 2, 2, 2, 0.0F));
+		bb_main.cubeList.add(new ModelBox(bb_main, 0, 12, 6.0F, -30.0F, -8.0F, 2, 2, 2, 0.0F));
+		bb_main.cubeList.add(new ModelBox(bb_main, 0, 24, -10.0F, -2.0F, -10.0F, 20, 2, 20, 0.0F));
+		bb_main.cubeList.add(new ModelBox(bb_main, 0, 12, 6.0F, -30.0F, -8.0F, 2, 2, 2, 0.0F));
+		bb_main.cubeList.add(new ModelBox(bb_main, 0, 16, 6.0F, -30.0F, 6.0F, 2, 2, 2, 0.0F));
+		bb_main.cubeList.add(new ModelBox(bb_main, 8, 12, -8.0F, -30.0F, 6.0F, 2, 2, 2, 0.0F));
+		bb_main.cubeList.add(new ModelBox(bb_main, 12, 0, -8.0F, -30.0F, -8.0F, 2, 2, 2, 0.0F));
 
-			coffin_lid = new ModelRenderer(this);
-			coffin_lid.setRotationPoint(0.0F, 24.0F, 0.0F);
-			coffin_lid.cubeList.add(new ModelBox(coffin_lid, 0, 0, -12.0F, -16.0F, -14.0F, 24, 4, 44, 0.0F));
-			coffin_lid.cubeList.add(new ModelBox(coffin_lid, 92, 4, -10.0F, -18.0F, -14.0F, 20, 2, 44, 0.0F));
 
-			bb_main = new ModelRenderer(this);
-			bb_main.setRotationPoint(0.0F, 24.0F, 0.0F);
-			bb_main.cubeList.add(new ModelBox(bb_main, 0, 48, -12.0F, -4.0F, -14.0F, 24, 4, 44, 0.0F));
-			bb_main.cubeList.add(new ModelBox(bb_main, 76, 98, -10.0F, -12.0F, -10.0F, 2, 8, 36, 0.0F));
-			bb_main.cubeList.add(new ModelBox(bb_main, 0, 96, 8.0F, -12.0F, -10.0F, 2, 8, 36, 0.0F));
-			bb_main.cubeList.add(new ModelBox(bb_main, 0, 26, -10.0F, -12.0F, -12.0F, 20, 8, 2, 0.0F));
-			bb_main.cubeList.add(new ModelBox(bb_main, 0, 16, -10.0F, -12.0F, 26.0F, 20, 8, 2, 0.0F));
-		}
+		bb_cube = new ModelRenderer(this, 60, 24);
+		bb_cube.addBox(-4F, -4F, -4F, 8, 8, 8);
+		bb_cube.setRotationPoint(0F, -5F, 0F);
+		bb_cube.setTextureSize(128, 128);
+	}
 
 		public void renderModel(float f) {
 
-			corpse.render(f);
-			coffin_lid.render(f);
 			bb_main.render(f);
+			bb_cube.render(f);
+			updateAnimation();
+		}
+
+		private void updateAnimation() {
+			bb_cube.rotateAngleX += 0.00525F;
+			bb_cube.rotateAngleY += 0.00515F;
+			bb_cube.rotateAngleZ += 0.00925F;
+			++x;
+			bb_cube.offsetY = (float) (Math.sin(x*0.012)*0.15);
+			
 		}
 
 		public void setRotationAngle(ModelRenderer modelRenderer, float x, float y, float z) {

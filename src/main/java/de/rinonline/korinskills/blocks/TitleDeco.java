@@ -3,7 +3,7 @@ package de.rinonline.korinskills.blocks;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 
-public class TitleStatue  extends TileEntity {
+public class TitleDeco  extends TileEntity {
 	
     public boolean canUpdate()
     {
